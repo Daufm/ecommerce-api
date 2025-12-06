@@ -20,16 +20,17 @@ const getProducts = async (req, res) => {
  */
 const getProductById = async (req, res) => {
   try {
-    const { id } = req.params; // Extract product ID from URL parameters
-    const product = await productService.getProductById(id);
+    const id  = req.validateParams.id;// Extract product ID from URL parameters
+    console.log('Validated Params:', req.validateParams.id);
+    const product = await productService.getProductById(String(id));
 
     if (!product) {
       return handleNotFoundError(res, `Product with ID ${id} not found`);
     }
 
-    res.status(200).json(product);
+    res.status(200).json({product, message: `Product with ID ${id} retrieved successfully`});
   } catch (error) {
-    handleServerError(res, error, `Failed to Retrieve Product with ID ${req.params.id}`);
+    handleServerError(res, error, `Failed to Retrieve Product with ID ${req.validateParams}`);
   }
 };
 
