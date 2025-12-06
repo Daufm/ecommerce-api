@@ -8,6 +8,7 @@ const handleNotFoundError = (res, message = 'Resource not found') => {
   res.status(404).json({ message });
 };
 
+
 module.exports = {
   handleServerError,
   handleNotFoundError,
